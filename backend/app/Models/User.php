@@ -2,15 +2,16 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -21,6 +22,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role_id',
     ];
 
     /**
@@ -44,5 +46,34 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function role(): BelongsTo
+    {
+        return $this->belongsTo(Role::class);
+    }
+
+    public function isAdmin(): bool
+    {
+        return $this->role && $this->role->name === 'admin';
+    }
+
+    public function isUser(): bool
+    {
+        return $this->role && $this->role->name === 'user';
+    }
+
+    public function assignAdminRole(): void
+    {
+        $adminRole = Role::where('name', 'admin')->firstOrFail();
+        $this->role_id = $adminRole->id;
+        $this->save();
+    }
+
+    public function assignUserRole(): void
+    {
+        $userRole = Role::where('name', 'user')->firstOrFail();
+        $this->role_id = $userRole->id;
+        $this->save();
     }
 }

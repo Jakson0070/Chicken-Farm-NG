@@ -12,8 +12,18 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
-        //
+        $middleware->alias([
+            'role' => \App\Http\Middleware\RoleMiddleware::class,
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
-        //
+        $exceptions->respond(function ($response, $exception) {
+            if (request()->is('api/*')) {
+                return response()->json([
+                    'message' => $exception->getMessage() ?? 'An error occurred',
+                    'errors' => method_exists($exception, 'errors') ? $exception->errors() : null,
+                ], $response->getStatusCode());
+            }
+            return $response;
+        });
     })->create();
