@@ -81,11 +81,11 @@ export default function Footer() {
               </li>
               <li className="flex items-center gap-3">
                 <Phone size={16} className="text-farmGreen flex-shrink-0" />
-                <span>+234 888 0000</span>
+                <span>+234 906 774 0405</span>
               </li>
               <li className="flex items-center gap-3">
                 <Mail size={16} className="text-farmGreen flex-shrink-0" />
-                <span>suport@chickenfarm.com.ng</span>
+                <span>info@chickenfarm.com.ng</span>
               </li>
               <li className="pt-4">
                 <form
