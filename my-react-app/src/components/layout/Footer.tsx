@@ -1,11 +1,10 @@
-import { Facebook, Twitter, Instagram, Send, MapPin, Phone, Mail, ArrowRight } from 'lucide-react';
+import { Facebook, Twitter, Instagram, MapPin, Phone, Mail, ArrowRight } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 
 const socialLinks: { icon: LucideIcon; href: string; label: string }[] = [
-  { icon: Twitter, href: '#', label: 'Twitter' },
-  { icon: Facebook, href: '#', label: 'Facebook' },
-  { icon: Send, href: '#', label: 'Pinterest' },
+  { icon: Facebook, href: 'https://www.facebook.com/share/174k9Hr6nq/?mibextid=wwXIfr', label: 'Facebook' },
   { icon: Instagram, href: '#', label: 'Instagram' },
+  { icon: Twitter, href: '#', label: 'Twitter' },
 ];
 
 export default function Footer() {
@@ -26,13 +25,13 @@ export default function Footer() {
                   target.nextElementSibling?.classList.remove('hidden');
                 }}
               />
-              <span className="text-white font-bold text-lg">Chicken Farm</span>
+              <span className="text-white font-bold text-lg">ChickenFarm</span>
               <div className="w-10 h-10 bg-farmGreen rounded-full flex items-center justify-center text-white font-bold text-sm hidden">
                 CF
               </div>
             </a>
             <p className="text-sm leading-relaxed mb-8">
-              Your trusted farm-to-door delivery platform in Kano, Nigeria. Fresh poultry, eggs, vegetables and farm produce — delivered same-day.
+              ChickenFarm is a digital agricultural marketplace connecting farmers, businesses, and consumers across Nigeria.
             </p>
             <div className="flex gap-3">
               {socialLinks.map((s) => {
@@ -53,13 +52,13 @@ export default function Footer() {
 
           {/* Explore */}
           <div>
-            <h4 className="text-white font-bold mb-8">Explore</h4>
+            <h4 className="text-white font-bold mb-8">Links</h4>
             <ul className="space-y-4 text-sm">
               {[
-                { label: 'About', href: '#about' },
-                { label: 'Services', href: '#' },
-                { label: 'Our Projects', href: '#products' },
-                { label: 'Meet the Farmers', href: '#' },
+                { label: 'Home', href: '#' },
+                { label: 'Shop', href: '#products' },
+                { label: 'Sell on ChickenFarm', href: '#' },
+                { label: 'About Us', href: '#about' },
                 { label: 'Contact', href: '#contact' },
               ].map((item) => (
                 <li key={item.label}>
@@ -78,7 +77,7 @@ export default function Footer() {
             <ul className="space-y-4 text-sm">
               <li className="flex items-start gap-3">
                 <MapPin size={16} className="text-farmGreen mt-0.5 flex-shrink-0" />
-                <span>80 yola street street line, Kano, Nigeria</span>
+                <span>2040 Faruk Labaran Street, Kano, Nigeria</span>
               </li>
               <li className="flex items-center gap-3">
                 <Phone size={16} className="text-farmGreen flex-shrink-0" />
@@ -86,7 +85,7 @@ export default function Footer() {
               </li>
               <li className="flex items-center gap-3">
                 <Mail size={16} className="text-farmGreen flex-shrink-0" />
-                <span>Chickenfarm@company.com</span>
+                <span>suport@chickenfarm.com.ng</span>
               </li>
               <li className="pt-4">
                 <form
@@ -108,7 +107,7 @@ export default function Footer() {
         </div>
 
         <div className="border-t border-gray-800 mt-12 sm:mt-16 lg:mt-20 pt-6 sm:pt-8 flex flex-col sm:flex-row justify-between text-xs gap-3">
-          <p>© All Copyright 2026 Chicken Farm NG</p>
+          <p>© All Copyright 2026 by Chickenfarm Team</p>
           <div className="flex gap-6 mt-4 md:mt-0">
             <a className="hover:text-white transition-colors" href="#">Terms of Use</a>
             <a className="hover:text-white transition-colors" href="#">Privacy Policy</a>
