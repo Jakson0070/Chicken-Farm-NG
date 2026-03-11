@@ -16,7 +16,11 @@ class ProductController extends Controller
             $query->where('type', $request->string('type'));
         }
 
-        $products = $query->paginate($request->get('per_page', 15));
+        if ($request->filled('search')) {
+            $query->where('name', 'like', '%' . $request->string('search') . '%');
+        }
+
+        $products = $query->paginate($request->get('per_page', 8));
 
         return response()->json($products);
     }
