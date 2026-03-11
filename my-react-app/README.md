@@ -1,73 +1,91 @@
-# React + TypeScript + Vite
+# Chicken Farm NG — Landing Page
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Quick Start
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## React Compiler
-
-The React Compiler is currently not compatible with SWC. See [this issue](https://github.com/vitejs/vite-plugin-react/issues/428) for tracking the progress.
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+cd my-react-app
+npm install
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+The app will be available at `http://localhost:5173`.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Prerequisites
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+- **Node.js** v18 or higher
+- **npm** v9 or higher
+
+## IMPORTANT: After Pulling / Merging
+
+**Always run `npm install`** after pulling or merging to ensure all dependencies are installed. This project uses Tailwind CSS — if dependencies are missing, all styling breaks (buttons invisible, no colors, broken layout).
+
+```bash
+cd my-react-app
+npm install
+npm run dev
 ```
+
+If styles still look broken, do a clean reinstall:
+
+```bash
+rm -rf node_modules package-lock.json
+npm install
+npm run dev
+```
+
+## Key Dependencies
+
+| Dependency | Purpose |
+|---|---|
+| `tailwindcss` (v3) | All styling — utility-first CSS framework |
+| `postcss` + `autoprefixer` | CSS processing (required by Tailwind) |
+| `@tailwindcss/forms` | Tailwind plugin for styled form inputs |
+| `lucide-react` | SVG icon library |
+| `react-router-dom` | Client-side routing |
+
+## Config Files (do NOT delete)
+
+- `tailwind.config.js` — Custom colors (`farmGreen`, `farmDark`, `farmLight`) + content paths
+- `postcss.config.js` — PostCSS plugins (Tailwind + Autoprefixer)
+- `src/index.css` — Tailwind directives + Google Fonts + custom classes
+
+## Available Scripts
+
+| Command | Description |
+|---|---|
+| `npm run dev` | Start dev server with hot reload |
+| `npm run build` | TypeScript check + production build |
+| `npm run preview` | Preview the production build locally |
+| `npm run lint` | Run ESLint |
+
+## Project Structure
+
+```
+my-react-app/
+├── public/images/          # All images (hero, products, logos, etc.)
+├── src/
+│   ├── components/
+│   │   ├── layout/         # Header.tsx, Footer.tsx
+│   │   ├── sections/       # Hero, Products, AboutUs, WhyChooseUs, etc.
+│   │   └── ui/             # ProductCard.tsx
+│   ├── pages/
+│   │   └── LandingPage.tsx # Main page (assembles all sections)
+│   ├── index.css           # Tailwind + fonts + custom CSS
+│   ├── App.tsx             # Router setup
+│   └── main.tsx            # Entry point
+├── tailwind.config.js
+├── postcss.config.js
+└── package.json
+```
+
+## Fonts (via Google Fonts CDN)
+
+- **Inter** — Body text
+- **Covered By Your Grace** — Handwritten labels (`font-handwritten`)
+- **Playfair Display** — Serif headings (`font-heading`)
+
+## Custom Tailwind Colors
+
+- `farmGreen` → `#28a745`
+- `farmDark` → `#1a1a1a`
+- `farmLight` → `#f8f9fa`
