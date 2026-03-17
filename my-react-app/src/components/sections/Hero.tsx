@@ -2,7 +2,10 @@ import { ArrowRight, Phone } from 'lucide-react';
 
 export default function Hero() {
   return (
-    <section className="bg-hero-overlay min-h-[500px] sm:min-h-[550px] lg:min-h-[700px] flex items-center relative overflow-hidden">
+    <section
+      className="min-h-[500px] sm:min-h-[550px] lg:min-h-[700px] flex items-center relative overflow-hidden bg-cover bg-center bg-no-repeat"
+      style={{ backgroundImage: "url('/images/hero banner.png')" }}
+    >
       {/* Net bag flush against right wall */}
       <img
         src="/images/net%20bag.png"
@@ -27,7 +30,7 @@ export default function Hero() {
           <div className="flex flex-wrap gap-3 sm:gap-4">
             <a
               href="#products"
-              className="bg-farmGreen hover:bg-green-600 hover:shadow-lg hover:shadow-green-900/30 px-6 sm:px-8 py-3 sm:py-3.5 rounded-lg font-bold flex items-center gap-2 sm:gap-2.5 transition-all text-sm"
+              className="bg-green-600 hover:bg-green-600 hover:shadow-lg hover:shadow-green-900/30 px-6 sm:px-8 py-3 sm:py-3.5 rounded-lg font-bold flex items-center gap-2 sm:gap-2.5 transition-all text-sm"
             >
               Order now <ArrowRight size={16} />
             </a>

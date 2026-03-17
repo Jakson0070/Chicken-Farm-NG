@@ -1,15 +1,33 @@
-import { Link } from "react-router-dom";
+import Header from '../components/layout/Header';
+import Footer from '../components/layout/Footer';
+import Hero from '../components/sections/Hero';
+import FeaturesBar from '../components/sections/FeaturesBar';
+import Products from '../components/sections/Products';
+import AboutUs from '../components/sections/AboutUs';
+import StatsBar from '../components/sections/StatsBar';
+import WhyChooseUs from '../components/sections/WhyChooseUs';
+import BannerCTA from '../components/sections/BannerCTA';
+import OrganicCTA from '../components/sections/OrganicCTA';
+import HowItWorks from '../components/sections/HowItWorks';
+import Testimonials from '../components/sections/Testimonials';
+import Contact from '../components/sections/Contact';
 
-function Home() {
+export default function Home() {
   return (
-    <div>
-      <h1>Home Page</h1>
-      <Link to="/login" className="text-3xl font-bold text-red-500">
-        Login
-      </Link>
-      {/* Your home page content */}
+    <div className="bg-white text-gray-800">
+      <Header />
+      <Hero />
+      <FeaturesBar />
+      <Products />
+      <AboutUs />
+      <StatsBar />
+      <WhyChooseUs />
+      <BannerCTA />
+      <OrganicCTA />
+      <HowItWorks />
+      <Testimonials />
+      <Contact />
+      <Footer />
     </div>
-  )
+  );
 }
-
-export default Home

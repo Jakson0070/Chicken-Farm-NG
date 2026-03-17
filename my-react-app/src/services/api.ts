@@ -1,4 +1,5 @@
-const API_BASE_URL = "http://localhost:8000/api";
+const API_BASE_URL = import.meta.env.VITE_APP_URL as string;
+export { API_BASE_URL };
 
 // Get auth token from localStorage
 const getAuthToken = () => {
@@ -13,6 +14,7 @@ async function fetchApi(endpoint: string, options: RequestInit = {}) {
         ...options,
         headers: {
             "Content-Type": "application/json",
+            "Accept": "application/json",
             ...(token && { "Authorization": `Bearer ${token}` }),
             ...options.headers,
         },
@@ -37,7 +39,7 @@ async function fetchApi(endpoint: string, options: RequestInit = {}) {
 // Products API
 export const productsApi = {
     // Get all products (with optional filters)
-    getAll: async (params?: { type?: string; search?: string }) => {
+    getAll: async (params?: { type?: string; search?: string; page?: string }) => {
         const queryString = params ? new URLSearchParams(params).toString() : "";
         const endpoint = queryString ? `/products?${queryString}` : "/products";
         const response = await fetchApi(endpoint);
@@ -68,7 +70,21 @@ export const cartApi = {
             method: "POST",
             body: JSON.stringify({ product_id: productId, quantity }),
         });
-        if (!response.ok) throw new Error("Failed to add to cart");
+        if (!response.ok) {
+            let message = "Failed to add to cart";
+            try {
+                const data = await response.json();
+                if (data?.message) message = data.message;
+            } catch {
+                try {
+                    const text = await response.text();
+                    if (text) message = text;
+                } catch {
+                    // ignore
+                }
+            }
+            throw new Error(message);
+        }
         return response.json();
     },
     

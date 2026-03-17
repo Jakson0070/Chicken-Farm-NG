@@ -42,14 +42,17 @@ class InventoryService
     public function reserve(Product $product, float $quantity, ?InventoryBatch $batch = null, ?int $userId = null): void
     {
         DB::transaction(function () use ($product, $quantity, $batch, $userId) {
-            if ($product->availableStock() < $quantity) {
-                throw new \RuntimeException('Insufficient stock for product: ' . $product->name);
+            // Re-fetch product with lock to ensure stock doesn't change during transaction
+            $lockedProduct = Product::query()->lockForUpdate()->findOrFail($product->id);
+
+            if ($lockedProduct->availableStock() < $quantity) {
+                throw new \RuntimeException('Insufficient stock for product: ' . $lockedProduct->name);
             }
 
-            $product->stock_reserved = (float) $product->stock_reserved + $quantity;
-            $product->save();
+            $lockedProduct->stock_reserved = (float) $lockedProduct->stock_reserved + $quantity;
+            $lockedProduct->save();
 
-            $this->recordMovement($product, $quantity, 'reserve', $batch?->id, $userId, 'checkout');
+            $this->recordMovement($lockedProduct, $quantity, 'reserve', $batch?->id, $userId, 'checkout');
         });
     }
 

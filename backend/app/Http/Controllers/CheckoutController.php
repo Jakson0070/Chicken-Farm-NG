@@ -23,7 +23,7 @@ class CheckoutController extends Controller
     ): JsonResponse
     {
         $validated = $request->validate([
-            'delivery_method' => ['required', 'string', 'max:100'],
+            'delivery_method' => ['nullable', 'string', 'max:100'],
             'delivery_address' => ['nullable', 'string'],
             'notes' => ['nullable', 'string'],
         ]);
@@ -47,7 +47,8 @@ class CheckoutController extends Controller
 
                 $previousStatus = $cart->status;
                 $cart->status = Order::STATUS_PENDING_PAYMENT;
-                $cart->delivery_method = $validated['delivery_method'];
+                $cart->delivery_method = $validated['delivery_method']
+                    ?? config('commerce.default_delivery_method', 'local_delivery');
                 $cart->delivery_address = $validated['delivery_address'] ?? null;
                 $cart->notes = $validated['notes'] ?? null;
                 $cart->recalcTotals();

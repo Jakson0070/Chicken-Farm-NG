@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Menu, X, ShoppingBag } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const navLinks = [
   { label: 'Home', href: '#', active: true },
@@ -62,16 +63,16 @@ export default function Header() {
 
         {/* Action Buttons */}
         <div className="flex items-center gap-4">
-          <a
-            className="bg-farmGreen text-white px-5 py-2.5 rounded-lg font-semibold text-sm hover:bg-green-600 hover:shadow-lg hover:shadow-green-200 transition-all hidden md:inline-flex items-center gap-2"
-            href="#"
+          <Link
+            className="bg-green-600 text-white px-5 py-2.5 rounded-lg font-semibold text-sm hover:bg-green-600 hover:shadow-lg hover:shadow-green-200 transition-all hidden md:inline-flex items-center gap-2"
+            to="/market"
           >
             <ShoppingBag size={16} />
             Shop now
-          </a>
-          <a className="text-gray-600 font-medium text-sm hover:text-farmGreen transition-colors hidden md:inline-block" href="#">
+          </Link>
+          <Link className="text-gray-600 font-medium text-sm hover:text-farmGreen transition-colors hidden md:inline-block" to="/login">
             Log in
-          </a>
+          </Link>
 
           {/* Mobile Hamburger */}
           <button
@@ -107,16 +108,16 @@ export default function Header() {
             ))}
           </ul>
           <div className="flex flex-col gap-3 pt-3 border-t border-gray-100">
-            <a
+            <Link
+              to="/market"
               className="bg-farmGreen text-white px-6 py-3 rounded-lg font-semibold text-sm text-center hover:bg-green-600 transition-all flex items-center justify-center gap-2"
-              href="#"
             >
               <ShoppingBag size={16} />
               Shop now
-            </a>
-            <a className="text-gray-600 font-medium text-sm text-center py-2 hover:text-farmGreen transition-colors" href="#">
+            </Link>
+            <Link to="/login" className="text-gray-600 font-medium text-sm text-center py-2 hover:text-farmGreen transition-colors">
               Log in
-            </a>
+            </Link>
           </div>
         </div>
       </div>

@@ -22,7 +22,7 @@ export default function Contact() {
           {/* Form Area */}
           <div className="p-6 sm:p-8 lg:p-12 bg-white flex flex-col justify-center">
             <p className="text-farmGreen font-handwritten text-base sm:text-lg mb-1 sm:mb-2">Contact Us</p>
-            <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold mb-6 sm:mb-8 text-gray-900">Write a Message</h2>
+            <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold mb-6 sm:mb-8 text-gray-900">Have questions, want to buy farm products, or partner with us? Our team is ready to help!</h2>
             <form className="space-y-4 sm:space-y-5" onSubmit={handleSubmit}>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <input
@@ -42,7 +42,7 @@ export default function Contact() {
                 rows={4}
               />
               <button
-                className="bg-farmGreen text-white px-6 sm:px-8 py-3 sm:py-3.5 rounded-lg font-bold hover:bg-green-600 hover:shadow-lg hover:shadow-green-200 transition-all w-fit flex items-center gap-2 text-sm active:scale-[0.98]"
+                className="bg-green-600 text-white px-6 sm:px-8 py-3 sm:py-3.5 rounded-lg font-bold hover:bg-green-600 hover:shadow-lg hover:shadow-green-200 transition-all w-fit flex items-center gap-2 text-sm active:scale-[0.98]"
                 type="submit"
               >
                 Send a Message

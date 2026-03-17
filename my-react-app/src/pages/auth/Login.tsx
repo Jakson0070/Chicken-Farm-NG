@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { API_BASE_URL } from "../../services/api";
 import cow from "../../assets/images/cow.png";
 import vegetableIllustration from "../../assets/images/Vegetable_Illustration.png";
 import { Link, useNavigate } from "react-router-dom";
@@ -16,7 +17,7 @@ function Login() {
         setError("");
 
         try {
-            const response = await fetch("http://localhost:8000/api/auth/login", {
+            const response = await fetch(`${API_BASE_URL}/auth/login`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -61,7 +62,7 @@ function Login() {
                 <header className="text-center mb-10">
                     <div className="flex justify-center mb-4">
                         {/* Logo Placeholder using the provided source for Chicken Farm logo */}
-                        <img alt="Chicken Farm Logo" className="h-20 w-auto object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAuijP5feo95kUhuCzlFft9vkbZ2HKs0pJ_T6JutoFqKQgtkfU57PzBOqXSDQBjylY20O4chdhcTQNCG2KfHdynVm572tCeD7bghCgamPTjYyrruAA3lUqCdhgyltcFCXqzLGxS0yVxpBtXcn4LSIiQnBeyVUaRNWhfQ1uO1mJPQaqrbHAtoM_YaTt6I8HMEc8s9BuM4_h7BBe5zfhQXA6vAo5J0hKDTFMC_KoiowFzVCAyYdwak21b9ZWBtWrONnOaYzVTImWqxtY" />
+                        <img alt="Chicken Farm Logo" className="h-20 w-auto object-contain" src="/images/5 Full Logo - Black & White Background.png" />
                     </div>
                     <h1 className="text-3xl font-bold text-gray-800 mb-2">Welcome back</h1>
                     <p className="text-gray-500">Please enter your details to login</p>

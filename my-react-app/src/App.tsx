@@ -3,10 +3,11 @@ import Login from './pages/auth/Login'
 import Home from './pages/Home'
 import Register from './pages/auth/Register'
 import ProductIndex from './pages/products/Index'
+import PaymentCallback from './pages/PaymentCallback'
 import './App.css'
 
 function App() {
- 
+
 
   return (
     <BrowserRouter>
@@ -15,9 +16,11 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/market" element={<ProductIndex />} />
+        <Route path="/payment/callback" element={<PaymentCallback />} />
+        <Route path="/callback" element={<PaymentCallback />} />
       </Routes>
     </BrowserRouter>
-    
+
   )
 }
 

@@ -1,0 +1,17 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600" role="img" aria-label="Fresh Milk">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f9fafb" />
+      <stop offset="100%" stop-color="#eef2f7" />
+    </linearGradient>
+  </defs>
+  <rect width="800" height="600" fill="url(#bg)" />
+  <rect x="60" y="60" width="680" height="480" rx="40" fill="#ffffff" stroke="#e3e8ef" stroke-width="4" />
+        <g fill="none" stroke="#2a4c7b" stroke-width="6" stroke-linejoin="round">
+        <rect x="300" y="150" width="140" height="280" rx="30" fill="#e8f2ff" />
+        <rect x="325" y="120" width="90" height="50" rx="15" fill="#d5e8ff" />
+        <path d="M300 230 H440" />
+        <path d="M300 300 H440" />
+      </g>
+  <text x="400" y="470" font-size="32" text-anchor="middle" fill="#1f2937" font-family="Georgia, serif">Fresh Milk</text>
+</svg>

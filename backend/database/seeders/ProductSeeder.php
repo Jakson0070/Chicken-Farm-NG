@@ -16,7 +16,7 @@ class ProductSeeder extends Seeder
             [
                 'name' => 'Fresh Eggs Tray',
                 'description' => 'Farm fresh eggs packed by tray.',
-                'image' => 'https://images.unsplash.com/photo-1598965675036-6c3c7e3e6e6e?w=800&q=80',
+                'image' => 'https://commons.wikimedia.org/wiki/Special:FilePath/Chicken_eggs_in_tray.jpg',
                 'type' => 'produce',
                 'status' => Product::STATUS_PUBLISHED,
                 'unit' => 'dozen',
@@ -29,7 +29,7 @@ class ProductSeeder extends Seeder
             [
                 'name' => 'Broiler Chicken',
                 'description' => 'Live broiler chicken per piece.',
-                'image' => 'https://images.unsplash.com/photo-1548550023-2bdb3c5beed7?w=800&q=80',
+                'image' => 'https://commons.wikimedia.org/wiki/Special:FilePath/Broiler_Chicken_at_a_farm.jpg',
                 'type' => 'livestock',
                 'status' => Product::STATUS_PUBLISHED,
                 'unit' => 'piece',
@@ -42,7 +42,7 @@ class ProductSeeder extends Seeder
             [
                 'name' => 'Starter Feed Bag',
                 'description' => '25kg starter feed bag for chicks.',
-                'image' => 'https://images.unsplash.com/photo-1516467508483-a7212febe31a?w=800&q=80',
+                'image' => 'https://commons.wikimedia.org/wiki/Special:FilePath/Pellets.jpg',
                 'type' => 'feed',
                 'status' => Product::STATUS_PUBLISHED,
                 'unit' => 'bag',
@@ -55,7 +55,7 @@ class ProductSeeder extends Seeder
             [
                 'name' => 'Hybrid Maize Seedlings',
                 'description' => 'Pre-order hybrid maize seedlings.',
-                'image' => 'https://images.unsplash.com/photo-1551754655-cd27e38d2076?w=800&q=80',
+                'image' => 'https://commons.wikimedia.org/wiki/Special:FilePath/Maize_Seedlings_02.jpg',
                 'type' => 'seedlings',
                 'status' => Product::STATUS_DRAFT,
                 'unit' => 'crate',
@@ -68,7 +68,7 @@ class ProductSeeder extends Seeder
             [
                 'name' => 'Organic Tomatoes',
                 'description' => 'Fresh organic tomatoes from the farm.',
-                'image' => 'https://images.unsplash.com/photo-1592924357228-91a4daadcfea?w=800&q=80',
+                'image' => 'https://commons.wikimedia.org/wiki/Special:FilePath/Tomato_je.jpg',
                 'type' => 'produce',
                 'status' => Product::STATUS_PUBLISHED,
                 'unit' => 'kg',
@@ -81,7 +81,7 @@ class ProductSeeder extends Seeder
             [
                 'name' => 'Fresh Milk',
                 'description' => 'Raw fresh milk directly from dairy cows.',
-                'image' => 'https://images.unsplash.com/photo-1550583724-b2692b85b150?w=800&q=80',
+                'image' => 'https://commons.wikimedia.org/wiki/Special:FilePath/Glass_of_Milk_%2833657535532%29.jpg',
                 'type' => 'dairy',
                 'status' => Product::STATUS_PUBLISHED,
                 'unit' => 'liter',
@@ -94,7 +94,7 @@ class ProductSeeder extends Seeder
             [
                 'name' => 'Layer Feed',
                 'description' => 'Premium layer feed for egg production.',
-                'image' => 'https://images.unsplash.com/photo-1563205764-5d59957f5e9e?w=800&q=80',
+                'image' => 'https://commons.wikimedia.org/wiki/Special:FilePath/Wheat_close-up.JPG',
                 'type' => 'feed',
                 'status' => Product::STATUS_PUBLISHED,
                 'unit' => 'bag',
@@ -107,7 +107,7 @@ class ProductSeeder extends Seeder
             [
                 'name' => 'Free Range Chicken',
                 'description' => 'Free range chicken raised naturally.',
-                'image' => 'https://images.unsplash.com/photo-1560706256-29d3a1d4a4f8?w=800&q=80',
+                'image' => 'https://commons.wikimedia.org/wiki/Special:FilePath/Free_range_chicken.jpg',
                 'type' => 'livestock',
                 'status' => Product::STATUS_PUBLISHED,
                 'unit' => 'piece',
@@ -120,7 +120,7 @@ class ProductSeeder extends Seeder
             [
                 'name' => 'Organic Lettuce',
                 'description' => 'Crisp organic lettuce heads.',
-                'image' => 'https://images.unsplash.com/photo-1622206151226-18ca2c9ab4a1?w=800&q=80',
+                'image' => 'https://commons.wikimedia.org/wiki/Special:FilePath/Lettuce.jpg',
                 'type' => 'produce',
                 'status' => Product::STATUS_PUBLISHED,
                 'unit' => 'head',
@@ -133,7 +133,7 @@ class ProductSeeder extends Seeder
             [
                 'name' => 'Farm Honey',
                 'description' => 'Pure raw honey from farm beehives.',
-                'image' => 'https://images.unsplash.com/photo-1587049352846-4a2438248e85?w=800&q=80',
+                'image' => 'https://commons.wikimedia.org/wiki/Special:FilePath/Honey_%28Italian-miele%29_in_a_jar.jpg',
                 'type' => 'produce',
                 'status' => Product::STATUS_PUBLISHED,
                 'unit' => 'jar',
@@ -146,7 +146,7 @@ class ProductSeeder extends Seeder
             [
                 'name' => 'Potato Sack',
                 'description' => 'Fresh potatoes 10kg sack.',
-                'image' => 'https://images.unsplash.com/photo-1518977676601-b53f82aba655?w=800&q=80',
+                'image' => 'https://commons.wikimedia.org/wiki/Special:FilePath/Potato_tubers.jpg',
                 'type' => 'produce',
                 'status' => Product::STATUS_PUBLISHED,
                 'unit' => 'sack',
@@ -159,7 +159,7 @@ class ProductSeeder extends Seeder
             [
                 'name' => 'Duck Eggs',
                 'description' => 'Fresh duck eggs dozen pack.',
-                'image' => 'https://images.unsplash.com/photo-1596707328771-46161e7c9e75?w=800&q=80',
+                'image' => 'https://commons.wikimedia.org/wiki/Special:FilePath/Duck_eggs.jpg',
                 'type' => 'produce',
                 'status' => Product::STATUS_PUBLISHED,
                 'unit' => 'dozen',
@@ -172,7 +172,7 @@ class ProductSeeder extends Seeder
             [
                 'name' => 'Corn Feed',
                 'description' => 'Whole corn kernels for poultry feed.',
-                'image' => 'https://images.unsplash.com/photo-1551754655-cd27e38d2076?w=800&q=80',
+                'image' => 'https://commons.wikimedia.org/wiki/Special:FilePath/Corn_Kernels.jpg',
                 'type' => 'feed',
                 'status' => Product::STATUS_PUBLISHED,
                 'unit' => 'bag',
@@ -185,7 +185,7 @@ class ProductSeeder extends Seeder
             [
                 'name' => 'Goat Kid',
                 'description' => 'Young goat for breeding or meat.',
-                'image' => 'https://images.unsplash.com/photo-1524024973431-1ad379f87a84?w=800&q=80',
+                'image' => 'https://commons.wikimedia.org/wiki/Special:FilePath/A_young_goat%2C_or_%22kid%22.jpg',
                 'type' => 'livestock',
                 'status' => Product::STATUS_PUBLISHED,
                 'unit' => 'piece',
@@ -198,7 +198,7 @@ class ProductSeeder extends Seeder
             [
                 'name' => 'Fresh Carrots',
                 'description' => 'Organic carrots bunch.',
-                'image' => 'https://images.unsplash.com/photo-1598170845058-32b9d6a5f375?w=800&q=80',
+                'image' => 'https://commons.wikimedia.org/wiki/Special:FilePath/Carrots.JPG',
                 'type' => 'produce',
                 'status' => Product::STATUS_PUBLISHED,
                 'unit' => 'bunch',
@@ -211,7 +211,7 @@ class ProductSeeder extends Seeder
             [
                 'name' => 'Turkey',
                 'description' => 'Live turkey for special occasions.',
-                'image' => 'https://images.unsplash.com/photo-1544377288-3c599a05dc11?w=800&q=80',
+                'image' => 'https://commons.wikimedia.org/wiki/Special:FilePath/Turkey_Tom.jpg',
                 'type' => 'livestock',
                 'status' => Product::STATUS_PUBLISHED,
                 'unit' => 'piece',
@@ -224,7 +224,7 @@ class ProductSeeder extends Seeder
             [
                 'name' => 'Cabbage Head',
                 'description' => 'Fresh green cabbage head.',
-                'image' => 'https://images.unsplash.com/photo-1550441199-896e0e778e5a?w=800&q=80',
+                'image' => 'https://commons.wikimedia.org/wiki/Special:FilePath/Freshly_picked_Cabbage_head_02.jpg',
                 'type' => 'produce',
                 'status' => Product::STATUS_PUBLISHED,
                 'unit' => 'head',
@@ -237,7 +237,7 @@ class ProductSeeder extends Seeder
             [
                 'name' => 'Quail Eggs',
                 'description' => 'Premium quail eggs pack of 20.',
-                'image' => 'https://images.unsplash.com/photo-1596707328771-46161e7c9e75?w=800&q=80',
+                'image' => 'https://commons.wikimedia.org/wiki/Special:FilePath/Quail_Eggs.jpg',
                 'type' => 'produce',
                 'status' => Product::STATUS_PUBLISHED,
                 'unit' => 'pack',
@@ -250,7 +250,7 @@ class ProductSeeder extends Seeder
             [
                 'name' => 'Wheat Grains',
                 'description' => 'Quality wheat grains for feed or milling.',
-                'image' => 'https://images.unsplash.com/photo-1574323347407-f5e1ad6f020b?w=800&q=80',
+                'image' => 'https://commons.wikimedia.org/wiki/Special:FilePath/Wheat_grains.JPG',
                 'type' => 'feed',
                 'status' => Product::STATUS_PUBLISHED,
                 'unit' => 'bag',
@@ -263,7 +263,7 @@ class ProductSeeder extends Seeder
             [
                 'name' => 'Bell Peppers Mix',
                 'description' => 'Mixed color bell peppers kg pack.',
-                'image' => 'https://images.unsplash.com/photo-1563565375-f3fdf5d7e1e8?w=800&q=80',
+                'image' => 'https://commons.wikimedia.org/wiki/Special:FilePath/Bell_Peppers.jpg',
                 'type' => 'produce',
                 'status' => Product::STATUS_PUBLISHED,
                 'unit' => 'kg',

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { productsApi, cartApi } from "../../services/api";
+import { useNavigate, Link } from "react-router-dom";
+import { productsApi, cartApi, API_BASE_URL } from "../../services/api";
 
 interface Product {
     id: number;
@@ -87,6 +87,7 @@ function ProductsIndex() {
     const [currentPage, setCurrentPage] = useState(1);
     const [lastPage, setLastPage] = useState(1);
     const [totalProducts, setTotalProducts] = useState(0);
+    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
     // Check authentication status on mount and when storage changes
     useEffect(() => {
@@ -147,6 +148,8 @@ function ProductsIndex() {
             console.log('Products data.data:', productsData.data);
             const productsArray = Array.isArray(productsData.data) ? productsData.data : (Array.isArray(productsData) ? productsData : []);
             console.log('Products array:', productsArray);
+            // Debug: Log image URLs
+            productsArray.forEach((p: Product) => console.log(`Product ${p.id} (${p.name}) image:`, p.image));
             setProducts(productsArray);
             
             // Update pagination info
@@ -208,7 +211,8 @@ function ProductsIndex() {
                         Array.isArray(cartData) ? cartData : [];
             setCartItems(cart);
         } catch (err) {
-            alert("Failed to add to cart. Please try again.");
+            const message = err instanceof Error ? err.message : "Failed to add to cart. Please try again.";
+            alert(message);
             console.error(err);
         }
     };
@@ -238,7 +242,7 @@ function ProductsIndex() {
 
         try {
             setIsProcessing(true);
-            const response = await fetch("http://localhost:8000/api/checkout", {
+            const response = await fetch(`${API_BASE_URL}/checkout`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -250,6 +254,12 @@ function ProductsIndex() {
             const data = await response.json();
 
             if (response.ok) {
+                // Redirect to payment URL if provided
+                if (data.payment_url) {
+                    window.location.href = data.payment_url;
+                    return;
+                }
+
                 setOrderSuccess(true);
                 setCartItems([]);
                 setTimeout(() => {
@@ -276,7 +286,7 @@ function ProductsIndex() {
     const fetchOrders = async () => {
         try {
             setIsLoadingOrders(true);
-            const response = await fetch("http://localhost:8000/api/orders", {
+            const response = await fetch(`${API_BASE_URL}/orders`, {
                 headers: {
                     "Authorization": `Bearer ${localStorage.getItem("token")}`,
                 },
@@ -294,7 +304,7 @@ function ProductsIndex() {
 
     const fetchOrderDetails = async (orderId: number) => {
         try {
-            const response = await fetch(`http://localhost:8000/api/orders/${orderId}`, {
+            const response = await fetch(`${API_BASE_URL}/orders/${orderId}`, {
                 headers: {
                     "Authorization": `Bearer ${localStorage.getItem("token")}`,
                 },
@@ -312,11 +322,6 @@ function ProductsIndex() {
         fetchOrders();
         setIsOrdersOpen(true);
         setSelectedOrder(null);
-    };
-
-    const handlePayNow = (orderId: number) => {
-        // Redirect to payment page with order ID
-        window.location.href = `/payment?order_id=${orderId}`;
     };
 
     const handlePageChange = (page: number) => {
@@ -339,19 +344,26 @@ function ProductsIndex() {
                 <div className="container mx-auto px-4 py-3 flex items-center justify-between">
                     {/* Logo Section */}
                     <div className="flex items-center gap-2">
-                        <img alt="Chicken Farm Logo" className="w-12 h-12" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD1l8l9tZRJN5BG5N3vzGEA0fgj3i4WkpY52c9Zj6XQGlfuyMG6sGNA6QPFLNZklylR4yuzex8WLlopblCR2vdG9y4TFnaUGbRujzegAc_ljFApAfP8MExmeHuyQrhxEeUlm22aEklaryAMo9iVO2SACOW6R47ehdUDdJACx5c_-VujxFubAK8hoKu1XApUzupNkfwWbNXPG3AO2jFCg46yaqhC02qYhpyx6-rScIkb-T7_OwxrNihvhrM9QoPglKq3vM5qd3GBwlU"/>
+                        <img alt="Chicken Farm Logo" className="w-12 h-12" src="/images/5 Full Logo - Black & White Background.png" />
                         <span className="text-[#199b1d] font-bold text-xl">Chicken Farm</span>
                     </div>
+                    {/* Hamburger Menu for Small Screens */}
+                    <button
+                        onClick={() => setIsSidebarOpen(true)}
+                        className="md:hidden p-2 text-gray-600 hover:text-[#199b1d] transition-colors"
+                    >
+                        <i className="fa-solid fa-bars text-xl"></i>
+                    </button>
                     {/* Navigation links */}
                     <nav className="hidden md:flex items-center space-x-8 text-sm font-medium text-gray-600">
-                        <a className="hover:text-[#199b1d] transition-colors" href="#">Home</a>
+                        <Link className="hover:text-[#199b1d] transition-colors" to="/" >Home</Link>
                         <a className="text-[#199b1d] border-b-2 border-[#199b1d] pb-1" href="#">Shop</a>
-                        <a className="hover:text-[#199b1d] transition-colors" href="#">About Us</a>
-                        <a className="hover:text-[#199b1d] transition-colors" href="#">Our Products</a>
-                        <a className="hover:text-[#199b1d] transition-colors" href="#">Contact Us</a>
+                        <a className="hover:text-[#199b1d] transition-colors" href="#">Customer Care</a>
+                       {/* <a className="hover:text-[#199b1d] transition-colors" href="#">Our Products</a>
+                        <a className="hover:text-[#199b1d] transition-colors" href="#">Contact Us</a> */}
                     </nav>
                     {/* Auth Buttons */}
-                    <div className="flex items-center gap-3">
+                    <div className="hidden md:flex items-center gap-3">
                         {isLoggedIn ? (
                             // Show Orders and Logout when logged in
                             <>
@@ -390,6 +402,51 @@ function ProductsIndex() {
                 </div>
             </header>
             {/* END: MainHeader */}
+            {/* Sidebar for Small Screens */}
+            {isSidebarOpen && (
+                <div className="fixed inset-0 z-[110] flex">
+                    <div className="fixed inset-0 bg-black/50" onClick={() => setIsSidebarOpen(false)}></div>
+                    <div className="relative w-64 bg-white shadow-2xl transform transition-transform duration-300 ease-in-out">
+                        <div className="p-4 border-b">
+                            <button onClick={() => setIsSidebarOpen(false)} className="float-right text-gray-600 hover:text-gray-800">
+                                <i className="fa-solid fa-xmark text-xl"></i>
+                            </button>
+                            <div className="flex items-center gap-2">
+                                <img alt="Chicken Farm Logo" className="w-8 h-8" src="/images/5 Full Logo - Black & White Background.png" />
+                                <span className="text-[#199b1d] font-bold text-lg">Chicken Farm</span>
+                            </div>
+                        </div>
+                        <nav className="p-4 space-y-4">
+                            <Link to="/" className="block py-2 px-4 text-gray-700 hover:bg-gray-100 rounded" onClick={() => setIsSidebarOpen(false)}>
+                                <i className="fa-solid fa-home mr-2"></i> Home
+                            </Link>
+                            {isLoggedIn && (
+                                <button onClick={() => { handleOpenOrders(); setIsSidebarOpen(false); }} className="block w-full text-left py-2 px-4 text-gray-700 hover:bg-gray-100 rounded">
+                                    <i className="fa-solid fa-box mr-2"></i> Orders
+                                </button>
+                            )}
+                            <a href="#" className="block py-2 px-4 text-gray-700 hover:bg-gray-100 rounded" onClick={() => setIsSidebarOpen(false)}>
+                                <i className="fa-solid fa-headset mr-2"></i> Customer Care
+                            </a>
+                            {isLoggedIn && (
+                                <button onClick={() => { handleLogout(); setIsSidebarOpen(false); }} className="block w-full text-left py-2 px-4 text-gray-700 hover:bg-gray-100 rounded">
+                                    <i className="fa-solid fa-sign-out-alt mr-2"></i> Logout
+                                </button>
+                            )}
+                            {!isLoggedIn && (
+                                <>
+                                    <button onClick={() => { navigate("/login"); setIsSidebarOpen(false); }} className="block w-full text-left py-2 px-4 text-gray-700 hover:bg-gray-100 rounded">
+                                        <i className="fa-solid fa-sign-in-alt mr-2"></i> Login
+                                    </button>
+                                    <button onClick={() => { navigate("/register"); setIsSidebarOpen(false); }} className="block w-full text-left py-2 px-4 bg-[#199b1d] text-white hover:bg-[#147a17] rounded">
+                                        <i className="fa-solid fa-user-plus mr-2"></i> Register
+                                    </button>
+                                </>
+                            )}
+                        </nav>
+                    </div>
+                </div>
+            )}
             {/* BEGIN: TopBar Marquee */}
             <div className="bg-white border-b py-2">
                 <div className="container mx-auto px-4 flex items-center overflow-hidden">
@@ -408,8 +465,8 @@ function ProductsIndex() {
             {/* BEGIN: SubHeader Search */}
             <div className="bg-white py-6">
                 <div className="container mx-auto px-4 flex items-center justify-between gap-4">
-                    <div className="flex items-center gap-2">
-                        <img alt="Small Logo" className="w-10 h-10 grayscale opacity-70" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCwXVRGnPmlTVOiuvLBCIsNn65CtqRkp94aoBw722p8p-nQQ8bZE2sls-822CVq45_YpvlrrCRfK-ShzZ9WoYxmCuj0PabinctXUxJWfva5voRSWQGdBR3D1Z7S8_wjfJNb8oIIapbsyhify-wdvUD6RqYaxNKjo8WAfwD9sJpeiZlgDsE7GAjwjHb-1T3rRvwwxUgqoQflrF1jHYQzi5LwHlxwKtFtvDauP239ZDXSCELdbj4Cb5NZc_qwH6YKlG6mTKixezGWx-Dw"/>
+                    <div className="hidden md:flex items-center gap-2">
+                        <img alt="Small Logo" className="w-10 h-10" src="/images/5 Full Logo - Black & White Background.png" />
                         <span className="font-bold text-gray-700 tracking-tighter">CHICKEN FARM</span>
                     </div>
                     <div className="flex-grow max-w-2xl flex items-center border rounded-md overflow-hidden">
@@ -657,15 +714,6 @@ function ProductsIndex() {
                                                     <span className="font-bold text-gray-700">Total</span>
                                                     <span className="text-xl font-bold text-[#199b1d]">₦{Math.floor(selectedOrder.total).toLocaleString()}</span>
                                                 </div>
-                                                {selectedOrder.status === 'pending_payment' && (
-                                                    <button
-                                                        onClick={() => handlePayNow(selectedOrder.id)}
-                                                        className="w-full bg-[#199b1d] text-white py-3 rounded-lg font-bold hover:bg-[#147a17] transition-colors flex items-center justify-center gap-2"
-                                                    >
-                                                        <i className="fa-solid fa-credit-card"></i>
-                                                        Pay Now
-                                                    </button>
-                                                )}
                                             </div>
                                         </div>
                                     ) : (
@@ -682,15 +730,35 @@ function ProductsIndex() {
                                                     {orders.map((order) => (
                                                         <div
                                                             key={order.id}
+                                                            onClick={() => fetchOrderDetails(order.id)}
                                                             className="border rounded-lg p-4 hover:border-[#199b1d] hover:bg-gray-50 cursor-pointer transition-all"
                                                         >
-                                                            <div className="flex justify-between items-start mb-3">
-                                                                <div onClick={() => fetchOrderDetails(order.id)} className="flex-1 cursor-pointer">
-                                                                    <h4 className="font-bold text-gray-800">{getOrderDisplayName(order)}</h4>
-                                                                    <p className="text-sm text-gray-500">{new Date(order.created_at).toLocaleDateString()}</p>
-                                                                    <p className="text-xs text-gray-400 mt-1">{order.items?.length || 0} item(s)</p>
+                                                            <div className="flex justify-between items-start">
+                                                                <div className="flex-1">
+                                                                    {/* Order Items with Images */}
+                                                                    <div className="space-y-2 mb-2">
+                                                                        {order.items && order.items.length > 0 ? (
+                                                                            order.items.map((item) => (
+                                                                                <div key={item.id} className="flex items-center gap-2">
+                                                                                    <img
+                                                                                        alt={item.product_name}
+                                                                                        className="w-10 h-10 rounded object-cover bg-gray-100"
+                                                                                        src={item.image || PLACEHOLDER_IMAGE}
+                                                                                        onError={handleImageError}
+                                                                                    />
+                                                                                    <div className="flex-1 min-w-0">
+                                                                                        <p className="font-semibold text-sm text-gray-800 truncate">{item.product_name}</p>
+                                                                                        <p className="text-xs text-gray-500">Qty: {Math.floor(item.quantity)}</p>
+                                                                                    </div>
+                                                                                </div>
+                                                                            ))
+                                                                        ) : (
+                                                                            <p className="text-gray-500 text-sm">No items in this order</p>
+                                                                        )}
+                                                                    </div>
+                                                                    <p className="text-xs text-gray-400">{new Date(order.created_at).toLocaleDateString()} • {order.items?.length || 0} item(s)</p>
                                                                 </div>
-                                                                <div className="text-right">
+                                                                <div className="text-right ml-4">
                                                                     <span className={`px-2 py-1 rounded text-xs font-bold ${
                                                                         order.status === 'pending_payment' ? 'bg-yellow-100 text-yellow-700' :
                                                                         order.status === 'completed' ? 'bg-green-100 text-green-700' :
@@ -702,18 +770,6 @@ function ProductsIndex() {
                                                                     <p className="font-bold text-[#199b1d] mt-2">₦{Math.floor(order.total).toLocaleString()}</p>
                                                                 </div>
                                                             </div>
-                                                            {order.status === 'pending_payment' && (
-                                                                <button
-                                                                    onClick={(e) => {
-                                                                        e.stopPropagation();
-                                                                        handlePayNow(order.id);
-                                                                    }}
-                                                                    className="w-full mt-2 bg-[#199b1d] text-white py-2 rounded-lg font-bold hover:bg-[#147a17] transition-colors flex items-center justify-center gap-2"
-                                                                >
-                                                                    <i className="fa-solid fa-credit-card"></i>
-                                                                    Pay Now
-                                                                </button>
-                                                            )}
                                                         </div>
                                                     ))}
                                                 </div>
@@ -810,15 +866,15 @@ function ProductsIndex() {
                     {/* Company Info */}
                     <div className="space-y-6">
                         <div className="flex items-center gap-2">
-                            <img alt="Chicken Farm Logo" className="w-12 h-12 bg-white rounded-full p-1" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCRnyLb5Wk8W-_Kc6quwNriGzwNIuzcwX5hrREQ607uSlRMKP1k9fE8flsh26XxDGvK4YQBY7-venLNAhJ0HRysynWyuqq4MIVi_zs9v5vT9IRNW3WXnj5zkQVbaAEafb0U6Nzwxp5b2NG7K29ZXffftvJQuPcqpMZiLbRqwKYbINcGFTfyOjai6S6UPrKamYrNtBxwtJhEn-DtlDdUimKE4Rx-D_LFvZdhxCrG6Yfq8so_hFWo1sabJOlRqfXyaTTzOADtNOHTDbo"/>
+                            <img alt="Chicken Farm Logo" className="w-12 h-12 bg-white rounded-full p-1" src="/images/5 Full Logo - Black & White Background.png"/>
                             <span className="text-[#199b1d] font-bold text-xl">Chicken Farm</span>
                         </div>
                         <p className="text-gray-400 text-sm leading-relaxed">
-                            There are many variations of passages of lorem ipsum available, but the majority suffered.
+                            ChickenFarm is a digital agricultural marketplace connecting farmers, businesses, and consumers across Nigeria.
                         </p>
                         <div className="flex gap-4">
                             <a className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-[#199b1d] transition-all" href="#"><i className="fa-brands fa-twitter text-sm"></i></a>
-                            <a className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-[#199b1d] transition-all" href="#"><i className="fa-brands fa-facebook-f text-sm"></i></a>
+                            <a className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-[#199b1d] transition-all" href="https://www.facebook.com/share/174k9Hr6nq/?mibextid=wwXIfr"><i className="fa-brands fa-facebook-f text-sm"></i></a>
                             <a className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-[#199b1d] transition-all" href="#"><i className="fa-brands fa-pinterest-p text-sm"></i></a>
                             <a className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-[#199b1d] transition-all" href="#"><i className="fa-brands fa-instagram text-sm"></i></a>
                         </div>
@@ -831,16 +887,16 @@ function ProductsIndex() {
                             <li><a className="hover:text-[#199b1d] flex items-center gap-2" href="#"><i className="fa-solid fa-leaf text-[8px]"></i> Services</a></li>
                             <li><a className="hover:text-[#199b1d] flex items-center gap-2" href="#"><i className="fa-solid fa-leaf text-[8px]"></i> Our Projects</a></li>
                             <li><a className="hover:text-[#199b1d] flex items-center gap-2" href="#"><i className="fa-solid fa-leaf text-[8px]"></i> Meet the Farmers</a></li>
-                            <li><a className="hover:text-[#199b1d] flex items-center gap-2" href="#"><i className="fa-solid fa-leaf text-[8px]"></i> Contact</a></li>
+                            <li><a className="hover:text-[#199b1d] flex items-center gap-2" href="support@chickenfarm.com.ng"><i className="fa-solid fa-leaf text-[8px]"></i> Contact</a></li>
                         </ul>
                     </div>
                     {/* Contact Info */}
                     <div>
                         <h3 className="text-xl font-bold mb-6 border-b-2 border-[#199b1d] w-fit pb-1">Contact</h3>
                         <div className="space-y-4 text-gray-400 text-sm">
-                            <p className="flex items-center gap-3"><i className="fa-solid fa-phone text-[#199b1d]"></i> +234 888 0000</p>
-                            <p className="flex items-center gap-3"><i className="fa-solid fa-envelope text-[#199b1d]"></i> Chickenfarm@company.com</p>
-                            <p className="flex items-start gap-3"><i className="fa-solid fa-location-dot text-[#199b1d] mt-1"></i> 80 yola street street line<br/>Kano, Nigeria</p>
+                            <p className="flex items-center gap-3"><i className="fa-solid fa-phone text-[#199b1d]"></i> +234 9067740405</p>
+                            <p className="flex items-center gap-3"><i className="fa-solid fa-envelope text-[#199b1d]"></i> support@chickenfarm.com.ng</p>
+                            <p className="flex items-start gap-3"><i className="fa-solid fa-location-dot text-[#199b1d] mt-1"></i> 2040 Faruk Labaran Street,<br/>Kano, Nigeria</p>
                             <div className="mt-8">
                                 <div className="flex rounded-md overflow-hidden">
                                     <input className="bg-white text-gray-800 text-xs px-4 py-3 flex-grow outline-none border-none" placeholder="Your Email Address" type="email"/>
@@ -854,7 +910,7 @@ function ProductsIndex() {
                 </div>
                 {/* Copyright */}
                 <div className="container mx-auto px-4 py-6 flex flex-col md:flex-row justify-between text-xs text-gray-500">
-                    <p>© All Copyright 2026 by <span className="text-[#199b1d]">MASQ IT</span></p>
+                    <p>© All Copyright 2026 by <span className="text-[#199b1d]">Chicken Farm NG</span></p>
                     <div className="flex gap-4 mt-2 md:mt-0">
                         <a className="hover:text-white" href="#">Terms of Use</a>
                         <span>|</span>

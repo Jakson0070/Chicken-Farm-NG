@@ -10,4 +10,11 @@ return [
     'base_url' => env('PAYMENTS_BASE_URL'),
     'callback_url' => env('PAYMENTS_CALLBACK_URL'),
     'webhook_route' => env('PAYMENTS_WEBHOOK_ROUTE', '/api/payments/webhook'),
+    'monnify' => [
+        'api_key' => env('MONNIFY_API_KEY'),
+        'secret_key' => env('MONNIFY_SECRET_KEY'),
+        'contract_code' => env('MONNIFY_CONTRACT_CODE'),
+        'base_url' => env('MONNIFY_BASE_URL', 'https://sandbox.monnify.com'),
+        'payment_methods' => env('MONNIFY_PAYMENT_METHODS', 'CARD,ACCOUNT_TRANSFER'),
+    ],
 ];

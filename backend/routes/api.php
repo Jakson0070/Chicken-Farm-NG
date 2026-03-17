@@ -20,6 +20,7 @@ Route::post('/auth/login', [LoginController::class, 'login']);
 Route::get('/products', [ProductController::class, 'index']);
 Route::get('/products/{product}', [ProductController::class, 'show']);
 Route::post('/payments/webhook', [PaymentController::class, 'webhook']);
+Route::get('/payments/callback', [PaymentController::class, 'callback']);
 
 // Protected routes
 Route::middleware('auth:sanctum')->group(function () {

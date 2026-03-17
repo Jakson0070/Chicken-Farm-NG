@@ -1,0 +1,16 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600" role="img" aria-label="Fresh Eggs Tray">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f9fafb" />
+      <stop offset="100%" stop-color="#eef2f7" />
+    </linearGradient>
+  </defs>
+  <rect width="800" height="600" fill="url(#bg)" />
+  <rect x="60" y="60" width="680" height="480" rx="40" fill="#ffffff" stroke="#e3e8ef" stroke-width="4" />
+        <g fill="none" stroke="#6b4f3b" stroke-width="6">
+        <ellipse cx="280" cy="250" rx="70" ry="90" fill="#f7efe6" />
+        <ellipse cx="380" cy="240" rx="70" ry="90" fill="#fff7ec" />
+        <ellipse cx="330" cy="330" rx="70" ry="90" fill="#f2e3d6" />
+      </g>
+  <text x="400" y="470" font-size="32" text-anchor="middle" fill="#1f2937" font-family="Georgia, serif">Fresh Eggs Tray</text>
+</svg>

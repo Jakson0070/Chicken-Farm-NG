@@ -6,7 +6,11 @@ export default function AboutUs() {
         <div className="text-center mb-10 sm:mb-12 lg:mb-16">
           <h2 className="text-2xl sm:text-3xl font-bold text-farmGreen mb-3 sm:mb-4">About us</h2>
           <p className="text-gray-500 max-w-lg mx-auto text-sm px-2">
-            Order your fresh farm products, sold in practical quantities for homes and businesses
+            ChickenFarm is a digital agricultural marketplace connecting farmers directly with consumers, retailers, and businesses.
+
+Our platform makes it easier to buy and sell farm products by removing middlemen and ensuring fair prices for farmers while providing fresh and affordable food for customers.
+
+We are building a trusted farm-to-market supply system that supports local farmers and improves food accessibility across Nigeria.
           </p>
         </div>
 
@@ -32,19 +36,19 @@ export default function AboutUs() {
           <div>
             <h3 className="text-farmGreen font-handwritten mb-2 text-lg lg:text-xl">Get to Know us</h3>
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold mb-5 sm:mb-6 leading-tight text-gray-900">
-              The Best Agriculture Market
+              Nigeria’s Smart Agriculture Marketplace
             </h2>
-            <p className="text-farmGreen font-semibold mb-4 text-sm sm:text-base">
-              We connect local farms in Kano directly to your kitchen — fresh poultry, eggs, vegetables and more.
+            <p className="text-green-600 font-semibold mb-4 text-sm sm:text-base">
+              ChickenFarm is a modern agritech platform connecting farmers directly with buyers, homes, restaurants, and businesses across Nigeria.
             </p>
             <p className="text-gray-500 mb-6 sm:mb-8 leading-relaxed text-sm sm:text-base">
-              Chicken Farm NG is a trusted farm-to-door delivery platform built for homes, restaurants, and businesses across Nigeria. We source directly from verified local farms to guarantee freshness, hygiene, and same-day delivery.
+              Our mission is to transform agricultural trade by making it easier to buy and sell fresh farm produce through technology. We help farmers reach larger markets while ensuring customers receive fresh, hygienic, and affordable products delivered directly from trusted farms
             </p>
             <ul className="space-y-3 mb-8 sm:mb-10">
               {[
-                'Same-day delivery across Kano and nearby cities',
-                'Verified local farms with hygiene-certified produce',
-                'Affordable bulk pricing for homes and businesses',
+                'Direct connection between farmers and buyers',
+                'Fresh farm produce sourced from verified farms',
+                'Reliable delivery to homes, restaurants, and businesses',
               ].map((item) => (
                 <li key={item} className="flex items-center gap-3 text-sm font-medium text-gray-700">
                   <span className="w-5 h-5 bg-farmGreen/10 text-farmGreen rounded-full flex items-center justify-center text-xs flex-shrink-0">✓</span>
@@ -54,7 +58,7 @@ export default function AboutUs() {
             </ul>
             <a
               href="#products"
-              className="inline-block bg-farmGreen text-white px-8 py-3.5 rounded-lg font-bold hover:bg-green-600 hover:shadow-lg hover:shadow-green-200 transition-all"
+              className="inline-block bg-green-600 text-white px-8 py-3.5 rounded-lg font-bold hover:bg-green-600 hover:shadow-lg hover:shadow-green-200 transition-all"
             >
               Discover More
             </a>
